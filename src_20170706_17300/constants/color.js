@@ -1,6 +1,6 @@
 export const color = {
-  primary: '#9C27B0',
-  primaryLight: '#CE93D8',
+  primary: '#00BFA5',
+  primaryLight: '#1DE9B6',
   red: 'red',
   yellow: 'yellow',
   gray: '#aaa',
@@ -8,5 +8,5 @@ export const color = {
   grayLight: '#eee',
   white: '#fff',
   transparent: 'transparent',
-  background: '#ddd',
+  background: '#ccc',
 };

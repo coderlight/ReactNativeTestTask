@@ -4,13 +4,16 @@ import {
   StyleSheet,
   StatusBar,
 } from 'react-native';
-import { ThemeProvider } from 'react-native-material-ui';
+import { COLOR, ThemeProvider } from 'react-native-material-ui';
 
 import { color } from '../constants/color';
 
 import RouterComponent from '../route/RouterComponent';
 
 const uiTheme = {
+  palette: {
+    primaryColor: COLOR.green500,
+  },
   toolbar: {
     container: {
       height: 50,
@@ -29,8 +32,7 @@ const styles = StyleSheet.create({
 
 export default class Root extends React.Component {
   componentWillMount() {
-    const { loadDataFromStorage } = this.props;
-    loadDataFromStorage();
+
   }
 
   render() {
@@ -42,9 +44,12 @@ export default class Root extends React.Component {
             animated
             hidden
           />
-          <RouterComponent />
+          {
+            <RouterComponent />
+          }
         </View>
       </ThemeProvider>
     );
   }
 }
+

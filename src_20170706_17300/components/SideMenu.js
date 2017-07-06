@@ -49,14 +49,14 @@ class SideMenu extends React.Component {
     this.props.logout();
   };
 
-  onPressCards = () => {
+  onPressRegistration = () => {
     this.closeDrawer();
-    actionsRoute.resetToCards();
+    actionsRoute.resetToRegistration();
   };
 
-  onPressList = () => {
+  onPressProducts = () => {
     this.closeDrawer();
-    actionsRoute.resetToList();
+    actionsRoute.resetToProducts();
   };
 
   closeDrawer = () => {
@@ -91,6 +91,22 @@ class SideMenu extends React.Component {
                 text: styles.sideMenuButtonsText,
               }}
             />
+            <Button
+              text="registration"
+              onPress={this.onPressRegistration}
+              style={{
+                container: styles.sideMenuButtons,
+                text: styles.sideMenuButtonsText,
+              }}
+            />
+            <Button
+              text="products"
+              onPress={this.onPressProducts}
+              style={{
+                container: styles.sideMenuButtons,
+                text: styles.sideMenuButtonsText,
+              }}
+            />
           </View>
           <View style={styles.drawerContent} />
         </View>
@@ -119,16 +135,8 @@ class SideMenu extends React.Component {
             }}
           />
           <Button
-            text="Reddit overview"
-            onPress={this.onPressCards}
-            style={{
-              container: styles.sideMenuButtons,
-              text: styles.sideMenuButtonsText,
-            }}
-          />
-          <Button
-            text="Users approve/disapprove list"
-            onPress={this.onPressList}
+            text="products"
+            onPress={this.onPressProducts}
             style={{
               container: styles.sideMenuButtons,
               text: styles.sideMenuButtonsText,

@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
 import reducerAuth from './reducerAuth';
-import reducerCards from './reducerCards';
 
 const reducers = {
   reducerAuth,
-  reducerCards,
 };
 
 const appReducer = combineReducers(reducers);

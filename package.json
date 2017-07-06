@@ -10,6 +10,7 @@
     "apisauce": "0.14.0",
     "react": "16.0.0-alpha.12",
     "react-native": "0.45.1",
+    "react-native-deck-swiper": "^1.2.3",
     "react-native-drawer": "2.3.0",
     "react-native-keyboard-spacer": "0.3.1",
     "react-native-material-ui": "1.12.0",
@@ -36,6 +37,8 @@
     "preset": "react-native"
   },
   "rnpm": {
-    "assets": ["./src/assets/fonts"]
+    "assets": [
+      "./src/assets/fonts"
+    ]
   }
 }

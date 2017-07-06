@@ -9,8 +9,6 @@ import { connect } from 'react-redux';
 
 import NavigationDrawer from '../components/NavigationDrawer';
 import Login from '../pages/Login';
-import Cards from '../pages/Cards';
-import List from '../pages/List';
 
 const { width, height } = Dimensions.get('window');
 
@@ -22,7 +20,7 @@ const styles = StyleSheet.create({
 });
 
 class RouterComponent extends React.Component {
-  shouldComponentUpdate() {
+  shouldComponentUpdate(nextProps, nextState) {
     return false;
   }
 
@@ -39,8 +37,6 @@ class RouterComponent extends React.Component {
           >
             <Scene key="main" hideNavBar hideTabBar >
               <Scene key="Login" component={Login} />
-              <Scene key="Cards" component={Cards} />
-              <Scene key="List" component={List} />
             </Scene>
           </Scene>
         </Router>

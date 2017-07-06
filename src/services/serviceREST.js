@@ -1,14 +1,15 @@
 import { create } from 'apisauce';
 
-const REQUEST_URL = 'http://smktesting.herokuapp.com/api/';
+import { REQUEST_URL } from '../constants/requestUrl';
 
 const api = create({
+  baseURL: '',
   baseURL: REQUEST_URL,
   headers: {
     Accept: 'application/json',
     'Content-type': 'application/json',
   },
-  timeout: 10000,
+  timeout: 3000,
 });
 
 export const setTokenToHeaders = (token) => {
@@ -32,9 +33,9 @@ export const requestErrorHandler = (response, reject) => {
   }
 };
 
-export const getProducts = () => new Promise((resolve, reject) => {
+export const getCards = () => new Promise((resolve, reject) => {
   api
-  .get('products/')
+  .get('/r/aww.json')
   .then((response) => {
     if (response.ok) {
       resolve(response);
@@ -43,67 +44,42 @@ export const getProducts = () => new Promise((resolve, reject) => {
     }
   })
   .catch((error) => {
-    console.warn('getProducts error:', error);
-    reject(error);
-  });
-});
-
-export const getProductReviews = id => new Promise((resolve, reject) => {
-  api
-  .get(`reviews/${id}`)
-  .then((response) => {
-    if (response.ok) {
-      resolve(response);
-    } else {
-      requestErrorHandler(response, reject);
-    }
-  })
-  .catch((error) => {
-    console.warn('getProductReviews error:', error);
-    reject(error);
-  });
-});
-
-export const postReview = (data, id) => new Promise((resolve, reject) => {
-  api.post(`reviews/${id}`, data)
-  .then((response) => {
-    if (response.ok) {
-      resolve(response);
-    }
-    resolve(response);
-  })
-  .catch((error) => {
-    console.warn('postReview error:', error);
-    reject(error);
-  });
-});
-
-export const postRegister = data => new Promise((resolve, reject) => {
-  api.post('register/', data)
-  .then((response) => {
-    if (response.ok) {
-      setTokenToHeaders(response.data.token);
-      resolve(response);
-    }
-    resolve(response);
-  })
-  .catch((error) => {
-    console.warn('postRegistration error:', error);
+    console.warn('getCards error:', error);
     reject(error);
   });
 });
 
 export const postLogin = data => new Promise((resolve, reject) => {
-  api.post('login/', data)
-  .then((response) => {
-    if (response.ok) {
-      setTokenToHeaders(response.data.token);
+  // api.post('login/', data)
+  // .then((response) => {
+  //   if (response.ok) {
+  //     setTokenToHeaders(response.data.token);
+  //     resolve(response);
+  //   }
+  //   resolve(response);
+  // })
+  // .catch((error) => {
+  //   console.warn('postLogin error:', error);
+  //   reject(error);
+  // });
+
+
+  setTimeout(() => {
+    if (data.password === 'password') {
+      const response = {
+        data: {
+          success: true,
+        },
+      };
+      resolve(response);
+    } else {
+      const response = {
+        data: {
+          success: false,
+          message: 'Login Failed',
+        },
+      };
       resolve(response);
     }
-    resolve(response);
-  })
-  .catch((error) => {
-    console.warn('postLogin error:', error);
-    reject(error);
-  });
+  }, 1000);
 });
