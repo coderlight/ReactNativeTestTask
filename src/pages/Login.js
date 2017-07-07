@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 5,
     borderRadius: 2,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: color.grayLight,
   },
   iconContainer: {
     width: 35,
@@ -112,6 +112,18 @@ const styles = StyleSheet.create({
 const { State: TextInputState } = TextInput;
 
 class Login extends React.Component {
+  static propTypes = {
+    login: React.PropTypes.func,
+    authResult: React.PropTypes.string,
+    authRequestInProgress: React.PropTypes.bool,
+  };
+
+  static defaultProps = {
+    login: () => {},
+    authResult: '',
+    authRequestInProgress: null,
+  };
+
   constructor(props) {
     super(props);
 
@@ -126,12 +138,12 @@ class Login extends React.Component {
   };
 
   onLogin = () => {
-    const { login, register } = this.props;
+    const { login } = this.props;
     const { username, password } = this.state;
     login({ username, password });
   };
 
-  dismissKeyboard() {
+  dismissKeyboard = () => {
     TextInputState.blurTextInput(TextInputState.currentlyFocusedField());
   }
 

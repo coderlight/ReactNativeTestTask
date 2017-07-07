@@ -43,6 +43,22 @@ const styles = StyleSheet.create({
 });
 
 export default class ListItem extends React.Component {
+  static propTypes = {
+    item: React.PropTypes.shape({
+      thumbnail: React.PropTypes.string,
+      title: React.PropTypes.string,
+      approved: React.PropTypes.bool,
+    }),
+  };
+
+  static defaultProps = {
+    item: {
+      thumbnail: '',
+      title: '',
+      approved: null,
+    },
+  };
+
   render() {
     const {
       thumbnail,

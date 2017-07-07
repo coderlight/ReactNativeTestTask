@@ -3,7 +3,6 @@ import {
   StyleSheet,
   View,
   Dimensions,
-  Image,
 } from 'react-native';
 
 import * as Material from 'react-native-material-ui';
@@ -28,10 +27,21 @@ const styles = StyleSheet.create({
 });
 
 export default class Card extends React.Component {
+  static propTypes = {
+    card: React.PropTypes.shape({
+      thumbnail: React.PropTypes.string,
+    }),
+  };
+
+  static defaultProps = {
+    card: {
+      thumbnail: '',
+    },
+  };
+
   render() {
     const {
       thumbnail,
-      title,
     } = this.props.card;
 
     return (
@@ -51,13 +61,3 @@ export default class Card extends React.Component {
     );
   }
 }
-
-Card.defaultProps = {
-  thumbnail: '',
-  title: '',
-};
-
-Card.propTypes = {
-  thumbnail: React.PropTypes.string,
-  title: React.PropTypes.string,
-};

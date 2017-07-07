@@ -1,9 +1,9 @@
 import { create } from 'apisauce';
 
-import { REQUEST_URL } from '../constants/requestUrl';
+import { requestUrl } from '../constants/requestUrl';
 
 const api = create({
-  baseURL: REQUEST_URL,
+  baseURL: requestUrl.url,
   headers: {
     Accept: 'application/json',
     'Content-type': 'application/json',
@@ -34,7 +34,7 @@ export const requestErrorHandler = (response, reject) => {
 
 export const getCards = () => new Promise((resolve, reject) => {
   api
-  .get('/r/aww.json')
+  .get(requestUrl.getEndpoint)
   .then((response) => {
     if (response.ok) {
       resolve(response);
@@ -48,7 +48,7 @@ export const getCards = () => new Promise((resolve, reject) => {
   });
 });
 
-export const postLogin = data => new Promise((resolve, reject) => {
+export const postLogin = data => new Promise((resolve) => {
   // fake api call
   setTimeout(() => {
     if (data.password === 'password') {

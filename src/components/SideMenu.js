@@ -35,6 +35,16 @@ const styles = StyleSheet.create({
 });
 
 class SideMenu extends React.Component {
+  static propTypes = {
+    logout: React.PropTypes.func,
+    username: React.PropTypes.string,
+  };
+
+  static defaultProps = {
+    logout: () => {},
+    username: '',
+  };
+
   onPressMenu = () => {
     this.closeDrawer();
   };
@@ -61,7 +71,7 @@ class SideMenu extends React.Component {
 
   closeDrawer = () => {
     TimerMixin.setTimeout(() => {
-      Actions.refresh({ key: 'root', open: value => false });
+      Actions.refresh({ key: 'root', open: () => false });
     }, 0);
   };
 

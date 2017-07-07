@@ -29,6 +29,14 @@ const styles = StyleSheet.create({
 });
 
 class List extends React.Component {
+  static propTypes = {
+    cardsReview: React.PropTypes.arrayOf(React.PropTypes.object),
+  };
+
+  static defaultProps = {
+    cardsReview: [],
+  };
+
   constructor(props) {
     super(props);
     this.state = {

@@ -1,1 +1,4 @@
-export const REQUEST_URL = 'https://www.reddit.com';
+export const requestUrl = {
+  url: 'https://www.reddit.com',
+  getEndpoint: '/r/aww.json',
+};

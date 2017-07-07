@@ -38,6 +38,20 @@ const styles = StyleSheet.create({
 });
 
 class Cards extends React.Component {
+  static propTypes = {
+    updateActualCards: React.PropTypes.func,
+    actualCards: React.PropTypes.arrayOf(React.PropTypes.object),
+    onSwipedCard: React.PropTypes.func,
+    username: React.PropTypes.string,
+  };
+
+  static defaultProps = {
+    updateActualCards: () => {},
+    actualCards: [],
+    onSwipedCard: () => {},
+    username: '',
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -53,32 +67,10 @@ class Cards extends React.Component {
     updateActualCards();
   }
 
-  renderCard = card => (<View style={styles.card}>
-    <Card card={card} />
-  </View>);
-
   onSwipedAllCards = () => {
     this.setState({
       swipedAllCards: true,
     });
-  };
-
-  swipeBack = () => {
-    if (!this.state.isSwipingBack) {
-      this.setIsSwipingBack(true, () => {
-        this.swiper.swipeBack(() => {
-          this.setIsSwipingBack(false);
-        });
-      });
-    }
-  };
-
-  setIsSwipingBack = (isSwipingBack, cb) => {
-    this.setState({ isSwipingBack }, cb);
-  };
-
-  jumpTo = () => {
-    this.swiper.jumpToCardIndex(2);
   };
 
   onPressMenu = () => {
@@ -91,8 +83,30 @@ class Cards extends React.Component {
     this.setState({ cardIndex: cardIndex + 1 });
   };
 
+  setIsSwipingBack = (isSwipingBack, cb) => {
+    this.setState({ isSwipingBack }, cb);
+  };
+
+  swipeBack = () => {
+    if (!this.state.isSwipingBack) {
+      this.setIsSwipingBack(true, () => {
+        this.swiper.swipeBack(() => {
+          this.setIsSwipingBack(false);
+        });
+      });
+    }
+  };
+
+  jumpTo = () => {
+    this.swiper.jumpToCardIndex(2);
+  };
+
+  renderCard = card => (<View style={styles.card}>
+    <Card card={card} />
+  </View>);
+
   render() {
-    const { actualCards, onSwipedCard, username } = this.props;
+    const { actualCards, username } = this.props;
     const { cardIndex } = this.state;
 
     let title = 'That`s all';
@@ -148,11 +162,11 @@ class Cards extends React.Component {
           secondCardZoom={0.1}
           disableTopSwipe
           disableBottomSwipe
-          onSwipedLeft={(cardIndex) => {
-            this.onSwipe(cardIndex, false);
+          onSwipedLeft={(cardIndex_) => {
+            this.onSwipe(cardIndex_, false);
           }}
-          onSwipedRight={(cardIndex) => {
-            this.onSwipe(cardIndex, true);
+          onSwipedRight={(cardIndex_) => {
+            this.onSwipe(cardIndex_, true);
           }}
         />
       </View>

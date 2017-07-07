@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const Spinner = () => <View style={styles.container}>
+const Spinner = () => (<View style={styles.container}>
   <ActivityIndicator />
-</View>;
+</View>);
 
 export default Spinner;
