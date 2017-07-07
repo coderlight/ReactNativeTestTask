@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actionsAuth from '../redux/actions/actionsAuth';
 
 import Root from '../pages/Root';
 
@@ -13,7 +12,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    loadDataFromStorage: () => { dispatch(actionsAuth.loadDataFromStorage()); },
   };
 }
 

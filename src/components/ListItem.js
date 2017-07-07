@@ -6,11 +6,11 @@ import {
   Image,
   Text,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { color } from '../constants/color';
 
-const iconApproved = (<Icon name="facebook" size={30} color="#900" />);
-const iconDisapproved = (<Icon name="thumbDown" size={30} color="#900" />);
+const iconApproved = (<Icon name="thumb-up" size={30} color={color.primary} />);
+const iconDisapproved = (<Icon name="thumb-down" size={30} color={color.primary} />);
 
 const { width } = Dimensions.get('window');
 
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   },
   title: {
     width: width - (imageSize * 2),
+    paddingLeft: 10,
   },
   approved: {
     width: imageSize,
@@ -46,7 +47,7 @@ export default class ListItem extends React.Component {
     const {
       thumbnail,
       title,
-      approved
+      approved,
     } = this.props.item;
 
     return (

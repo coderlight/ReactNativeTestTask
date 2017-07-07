@@ -1,8 +1,6 @@
 import * as actionsRoute from './actionsRoute';
 import * as actionsCards from './actionsCards';
 import * as serviceREST from '../../services/serviceREST';
-import { serviceStorage } from '../../services/serviceStorage';
-import { storageKeys } from '../../constants/storageKeys';
 
 export const SET_USERNAME = 'SET_USERNAME';
 export const SET_AUTH_REQUEST_IN_PROGRESS = 'SET_AUTH_REQUEST_IN_PROGRESS';
@@ -32,21 +30,7 @@ export function setAuthResult(data) {
 export const logout = () => (dispatch) => {
   dispatch(setUsername(null));
   dispatch(setAuthResult(null));
-  serviceREST.setTokenToHeaders(null);
-  serviceStorage.removeItem(storageKeys.username);
   actionsRoute.resetToLogin();
-};
-
-export const loadDataFromStorage = () => (dispatch) => {
-  serviceStorage.getStringItem(storageKeys.username)
-  .then((value) => {
-    if (value) {
-      dispatch(setUsername(value));
-      actionsRoute.replaceByCards();
-      dispatch(actionsCards.getCardsAction());
-    }
-  })
-  .catch(error => console.warn('loadDataFromStorage username serviceStorage.getStringItem error', error));
 };
 
 export const login = data => (dispatch) => {
@@ -70,7 +54,6 @@ export const login = data => (dispatch) => {
     if (response.data.success) {
       dispatch(setAuthResult('Success'));
       dispatch(setUsername(username));
-      serviceStorage.setStringItem(storageKeys.username, username);
       actionsRoute.replaceByCards();
       dispatch(actionsCards.getCardsAction());
     } else {

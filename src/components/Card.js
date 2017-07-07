@@ -46,3 +46,13 @@ export default class Card extends React.Component {
     );
   }
 }
+
+Card.defaultProps = {
+  thumbnail: '',
+  title: '',
+};
+
+Card.propTypes = {
+  thumbnail: React.PropTypes.string,
+  title: React.PropTypes.string,
+};

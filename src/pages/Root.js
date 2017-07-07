@@ -28,11 +28,6 @@ const styles = StyleSheet.create({
 });
 
 export default class Root extends React.Component {
-  componentWillMount() {
-    const { loadDataFromStorage } = this.props;
-    loadDataFromStorage();
-  }
-
   render() {
     return (
       <ThemeProvider uiTheme={uiTheme}>

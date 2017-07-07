@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
   sideMenuButtonsText: {
     color: color.white,
-    // fontFamily: 'Roboto-Regular',
+    fontFamily: 'Roboto-Regular',
   },
 });
 

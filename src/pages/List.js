@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { Toolbar } from 'react-native-material-ui';
 
 import * as actionsRoute from '../redux/actions/actionsRoute';
-import * as actionsCards from '../redux/actions/actionsCards';
 import ListItem from '../components/ListItem';
 import { color } from '../constants/color';
 
@@ -81,7 +80,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-
   };
 }
 

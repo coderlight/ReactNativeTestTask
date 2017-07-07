@@ -1,4 +1,3 @@
-import * as actionsRoute from './actionsRoute';
 import * as serviceREST from '../../services/serviceREST';
 
 export const SET_CARDS = 'SET_CARDS';
@@ -59,6 +58,7 @@ export const getCardsAction = () => (dispatch) => {
           thumbnail_height: item.data.thumbnail_height,
           thumbnail_width: item.data.thumbnail_width,
           title: item.data.title,
+          url: item.data.url,
         }));
       }
     }
@@ -80,4 +80,3 @@ export const onSwipedCard = (cardIndex, value) => (dispatch, getState) => {
   dispatch(setCards(cardsUpdated));
   dispatch(setCardsReview(cardsReview));
 };
-

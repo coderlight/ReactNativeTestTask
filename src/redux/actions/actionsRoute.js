@@ -16,10 +16,6 @@ export const replaceByList = () => {
   Actions.List({ type: 'replace' });
 };
 
-// export const pushProductDetail = () => {
-//   Actions.ProductDetails();
-// };
-
 export const resetToLogin = () => {
   Actions.Login({ type: 'reset' });
 };

@@ -2,6 +2,8 @@ import React from 'react';
 import {
   StyleSheet,
   View,
+  Dimensions,
+  Text,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Toolbar } from 'react-native-material-ui';
@@ -12,6 +14,8 @@ import * as actionsCards from '../redux/actions/actionsCards';
 import Card from '../components/Card';
 import { color } from '../constants/color';
 
+const { width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -21,6 +25,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  titleContainer: {
+    width,
+    backgroundColor: color.white,
+    padding: 10,
+  },
+  usernameText: {
+    fontSize: 18,
+    color: color.gray,
   },
 });
 
@@ -40,13 +53,9 @@ class Cards extends React.Component {
     updateActualCards();
   }
 
-  renderCard = card => {
-    return (
-      <View style={styles.card}>
-        <Card card={card} onPress={() => { this.onCardPress(card); }} />
-      </View>
-    );
-  };
+  renderCard = card => (<View style={styles.card}>
+    <Card card={card} />
+  </View>);
 
   onSwipedAllCards = () => {
     this.setState({
@@ -65,12 +74,7 @@ class Cards extends React.Component {
   };
 
   setIsSwipingBack = (isSwipingBack, cb) => {
-    this.setState(
-      {
-        isSwipingBack: isSwipingBack,
-      },
-      cb
-    );
+    this.setState({ isSwipingBack }, cb);
   };
 
   jumpTo = () => {
@@ -80,8 +84,22 @@ class Cards extends React.Component {
   onPressMenu = () => {
     actionsRoute.toggleDrawer();
   };
+
+  onSwipe = (cardIndex, value) => {
+    const { onSwipedCard } = this.props;
+    onSwipedCard(cardIndex, value);
+    this.setState({ cardIndex: cardIndex + 1 });
+  };
+
   render() {
-    const { actualCards, onSwipedCard } = this.props;
+    const { actualCards, onSwipedCard, username } = this.props;
+    const { cardIndex } = this.state;
+
+    let title = 'That`s all';
+    if (cardIndex < actualCards.length) {
+      title = actualCards[cardIndex].title;
+    }
+
     return (
       <View style={styles.container}>
         <Toolbar
@@ -94,24 +112,23 @@ class Cards extends React.Component {
             },
           }}
         />
+        <View style={styles.titleContainer}>
+          <Text style={styles.usernameText}>You logged as {username}</Text>
+          <Text>{title}</Text>
+        </View>
         <Swiper
+          marginTop={50}
           ref={(swiper) => {
             this.swiper = swiper;
           }}
           onSwiped={this.onSwiped}
           cards={actualCards}
-          cardIndex={this.state.cardIndex}
+          cardIndex={cardIndex}
           cardVerticalMargin={160}
           renderCard={this.renderCard}
           onSwipedAll={this.onSwipedAllCards}
           showSecondCard
           overlayLabels={{
-            bottom: {
-              title: 'BLEAH',
-              swipeColor: '#9262C2',
-              backgroundOpacity: '0.75',
-              fontColor: '#FFF',
-            },
             left: {
               title: 'NOPE',
               swipeColor: '#FF6C6C',
@@ -124,12 +141,6 @@ class Cards extends React.Component {
               backgroundOpacity: '0.75',
               fontColor: '#FFF',
             },
-            top: {
-              title: 'SUPER LIKE',
-              swipeColor: '#4EB8B7',
-              backgroundOpacity: '0.75',
-              fontColor: '#FFF',
-            },
           }}
           backgroundColor={color.transparent}
           animateOverlayLabelsOpacity
@@ -138,10 +149,10 @@ class Cards extends React.Component {
           disableTopSwipe
           disableBottomSwipe
           onSwipedLeft={(cardIndex) => {
-            onSwipedCard(cardIndex, true);
+            this.onSwipe(cardIndex, false);
           }}
           onSwipedRight={(cardIndex) => {
-            onSwipedCard(cardIndex, false);
+            this.onSwipe(cardIndex, true);
           }}
         />
       </View>
@@ -151,6 +162,7 @@ class Cards extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    username: state.reducerAuth.username,
     cards: state.reducerCards.cards,
     actualCards: state.reducerCards.actualCards,
   };
@@ -159,8 +171,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onSwipedCard: (cardIndex, value) => { dispatch(actionsCards.onSwipedCard(cardIndex, value)); }, 
-    updateActualCards: () => { dispatch(actionsCards.updateActualCards()); }, 
+    onSwipedCard: (cardIndex, value) => { dispatch(actionsCards.onSwipedCard(cardIndex, value)); },
+    updateActualCards: () => { dispatch(actionsCards.updateActualCards()); },
   };
 }
 

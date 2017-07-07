@@ -3,13 +3,12 @@ import { create } from 'apisauce';
 import { REQUEST_URL } from '../constants/requestUrl';
 
 const api = create({
-  baseURL: '',
   baseURL: REQUEST_URL,
   headers: {
     Accept: 'application/json',
     'Content-type': 'application/json',
   },
-  timeout: 3000,
+  timeout: 5000,
 });
 
 export const setTokenToHeaders = (token) => {
@@ -50,20 +49,7 @@ export const getCards = () => new Promise((resolve, reject) => {
 });
 
 export const postLogin = data => new Promise((resolve, reject) => {
-  // api.post('login/', data)
-  // .then((response) => {
-  //   if (response.ok) {
-  //     setTokenToHeaders(response.data.token);
-  //     resolve(response);
-  //   }
-  //   resolve(response);
-  // })
-  // .catch((error) => {
-  //   console.warn('postLogin error:', error);
-  //   reject(error);
-  // });
-
-
+  // fake api call
   setTimeout(() => {
     if (data.password === 'password') {
       const response = {

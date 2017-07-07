@@ -16,8 +16,11 @@ import { Actions } from 'react-native-router-flux';
 
 import * as actionsAuth from '../redux/actions/actionsAuth';
 import { color } from '../constants/color';
+import Spinner from '../components/Spinner';
 
 const { width, height } = Dimensions.get('window');
+
+const buttonHeight = 45;
 
 const styles = StyleSheet.create({
   container: {
@@ -67,10 +70,11 @@ const styles = StyleSheet.create({
   },
   btnLoginContainer: {
     width: width - 40,
-    height: 45,
+    height: buttonHeight,
     backgroundColor: color.primary,
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     borderRadius: 2,
   },
   btnText: {
@@ -98,6 +102,10 @@ const styles = StyleSheet.create({
   authResultText: {
     fontSize: 18,
     color: color.white,
+  },
+  spinnerView: {
+    height: buttonHeight,
+    width: buttonHeight,
   },
 });
 
@@ -129,7 +137,7 @@ class Login extends React.Component {
 
   render() {
     const { username, password } = this.state;
-    const { authResult } = this.props;
+    const { authResult, authRequestInProgress } = this.props;
     return (
       <View style={styles.container}>
         <Toolbar
@@ -187,9 +195,13 @@ class Login extends React.Component {
                   style={[styles.btnLoginContainer, styles.shadow]}
                   onPress={this.onLogin}
                 >
+                  <View style={styles.spinnerView} />
                   <Text style={[styles.btnText]}>
                     LOGIN
                   </Text>
+                  <View style={styles.spinnerView}>
+                    {authRequestInProgress ? <Spinner /> : null }
+                  </View>
                 </TouchableOpacity>
               </View>
             </View>
@@ -204,6 +216,7 @@ class Login extends React.Component {
 function mapStateToProps(state) {
   return {
     authResult: state.reducerAuth.authResult,
+    authRequestInProgress: state.reducerAuth.authRequestInProgress,
   };
 }
 
