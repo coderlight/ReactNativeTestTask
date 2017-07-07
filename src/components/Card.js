@@ -46,14 +46,6 @@ export default class Card extends React.Component {
             }}
             resizeMode={FastImage.resizeMode.contain}
           />
-          {
-            // <Image
-            //   resizeMode={'contain'}
-            //   source={{ uri: thumbnail, static: true }}
-            //   style={styles.image}
-            // />
-          }
-          
         </View>
       </Material.Card>
     );
