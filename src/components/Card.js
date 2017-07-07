@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import * as Material from 'react-native-material-ui';
+import FastImage from 'react-native-fast-image';
 
 import { color } from '../constants/color';
 
@@ -36,11 +37,23 @@ export default class Card extends React.Component {
     return (
       <Material.Card>
         <View style={styles.card}>
-          <Image
-            resizeMode={'contain'}
-            source={{ uri: thumbnail, static: true }}
+          <FastImage
             style={styles.image}
+            source={{
+              uri: thumbnail,
+              headers: { Authorization: 'someAuthToken' },
+              priority: FastImage.priority.normal,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
           />
+          {
+            // <Image
+            //   resizeMode={'contain'}
+            //   source={{ uri: thumbnail, static: true }}
+            //   style={styles.image}
+            // />
+          }
+          
         </View>
       </Material.Card>
     );
